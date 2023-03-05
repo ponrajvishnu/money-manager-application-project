@@ -70,6 +70,20 @@ router.get('/dashboard-list-items/:type',validate,roleAdmin, async(req,res) => {
   }
 })
 
+router.get('/dashboard-edit/:id',validate,roleAdmin, async(req,res) => {
+  try {
+    let manages = await MoneyManageModel.findOne({_id: req.params.id})
+    res.status(200).send({
+      manages
+    })
+  } catch(err) {
+    res.status(500).send({
+      message: "Internal server error",
+      err
+    })
+  }
+});
+
 router.put('/update-income-expense/:id',validate,roleAdmin, async(req,res) => {
   try {
     const HOUR = 12000 * 60 * 60;

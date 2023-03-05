@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useCallback} from 'react'
+import React,{useState,useEffect} from 'react'
 import {url} from '../App'
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ function Dashboard() {
     
     let navigate = useNavigate();
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState();
  
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -188,7 +188,7 @@ function Dashboard() {
                         <td>{e.categories}</td>
                         <td>{new Date(e.datetime).toLocaleDateString('en-UK')}</td>
                         <td>{new Date(e.createdAt).toLocaleDateString('en-UK')}</td>
-                        {(Date.parse(e.createdAt) > datediff) ? <td><Button varient="primary">Edit</Button></td> : '' }
+                        {(Date.parse(e.createdAt) > datediff) ? <td><Button variant='primary' onClick={()=>navigate(`/edit-manage/${e._id}`)}><i className="fas fa-pen-to-square"></i>Edit</Button></td> : '' }
                     </tr>
                 })
             }
