@@ -91,6 +91,9 @@ function Dashboard() {
                 console.log(res)
                 toast.success(res.data.message)
                 navigate('/dashboard')
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
             }
             
         } catch (error) {
@@ -188,7 +191,7 @@ function Dashboard() {
                         <td>{e.categories}</td>
                         <td>{new Date(e.datetime).toLocaleDateString('en-UK')}</td>
                         <td>{new Date(e.createdAt).toLocaleDateString('en-UK')}</td>
-                        {(Date.parse(e.createdAt) > datediff) ? <td><Button variant='primary' onClick={()=>navigate(`/edit-manage/${e._id}`)}><i className="fas fa-pen-to-square"></i>Edit</Button></td> : '' }
+                        {(Date.parse(e.createdAt) > datediff) ? <td><Button variant='primary' onClick={()=>navigate(`/edit-manage/${e._id}`)}><i className="fas fa-pen-to-square"></i>Edit</Button></td> : <td><Button variant='primary' disabled><i className="fas fa-pen-to-square"></i>Edit</Button></td> }
                     </tr>
                 })
             }

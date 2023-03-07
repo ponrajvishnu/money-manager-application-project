@@ -90,7 +90,7 @@ router.put('/update-income-expense/:id',validate,roleAdmin, async(req,res) => {
     const datediff = Date.now() - HOUR;
     let data = await MoneyManageModel.findOne({_id: req.params.id})
     
-    if(Date.parse(e.createdAt) > datediff){
+    if(Date.parse(data.createdAt) > datediff){
       let data = await MoneyManageModel.updateOne({_id: req.params.id}, {$set: req.body})
 
       res.status(200).send({

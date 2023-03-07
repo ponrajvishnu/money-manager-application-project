@@ -33,6 +33,9 @@ function EditMoneyManage() {
             if(res.status===200)
             {
                 setType(res.data.manages.type)
+                setCategories(res.data.manages.categories)
+                setDivision(res.data.manages.division)
+                setDateTime(res.data.manages.datetime)
                 setDesc(res.data.manages.description)
             }
         } catch (error) {
@@ -56,8 +59,22 @@ function EditMoneyManage() {
             handleLogout()
     },[])
 
-    let onEditManage = () => {
-
+    let onEditManage = async () => {
+        try {
+            let res = await axios.put(`${url}/update-income-expense/${id}`,{type,categories,division,datetime,description},{
+                headers:{
+                    authorization:`Bearer ${token}`
+                }
+            })
+            if(res.status===200){
+                console.log(res)
+                toast.success(res.data.message)
+                navigate('/dashboard')
+            }
+            
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
     }
 
   return <div className='container-fluid'>
@@ -65,7 +82,7 @@ function EditMoneyManage() {
     <Form>
         <Form.Group className="mb-3">
             <Form.Label>Type</Form.Label>
-            <Form.Select aria-label="Type" onChange={(e) => setType(e.target.value)}>
+            <Form.Select aria-label="Type" value={type} onChange={(e) => setType(e.target.value)}>
                 <option value="">Please Select</option>
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
@@ -73,7 +90,7 @@ function EditMoneyManage() {
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Categories</Form.Label>
-            <Form.Select aria-label="Categories" onChange={(e) => setCategories(e.target.value)}>
+            <Form.Select aria-label="Categories" value={categories} onChange={(e) => setCategories(e.target.value)}>
                 <option value="">Please Select</option>
                 <option value="Rent">Rent</option>
                 <option value="Loan">Loan</option>
@@ -86,7 +103,7 @@ function EditMoneyManage() {
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Division</Form.Label>
-            <Form.Select aria-label="Division" onChange={(e) => setDivision(e.target.value)}>
+            <Form.Select aria-label="Division" value={division} onChange={(e) => setDivision(e.target.value)}>
                 <option value="">Please Select</option>
                 <option value="Personal">Personal</option>
                 <option value="Office">Office</option>
@@ -94,14 +111,14 @@ function EditMoneyManage() {
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Date</Form.Label>
-            <Form.Control type="date" placeholder="" onChange={(e) => setDateTime(e.target.value)}/>
+            <Form.Control type="date" placeholder="" value={datetime} onChange={(e) => setDateTime(e.target.value)}/>
         </Form.Group>
         <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={3} placeholder="Enter Description" onChange={(e) => setDesc(e.target.value)}/>
+            <Form.Control as="textarea" rows={3} placeholder="Enter Description" value={description} onChange={(e) => setDesc(e.target.value)}/>
         </Form.Group>
         <Button variant="primary"onClick={() => onEditManage()}>Submit</Button>
-    </Form>
+    </Form> 
   </div>
 }
 
