@@ -28,6 +28,10 @@ function Login() {
     }
   return <>
   <div className='container-fluid'>
+  <div className="float-end mt-2">
+    <Button variant='primary' onClick={()=>navigate(`/register`)}>Register</Button>
+  </div>
+  <h3 className="text-center">Login</h3>
   <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>

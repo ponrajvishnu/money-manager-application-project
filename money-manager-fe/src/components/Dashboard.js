@@ -9,7 +9,6 @@ import Navbar from './Navbar'
 import Card from 'react-bootstrap/Card';
 import Popup from './Popup';
 import Form from 'react-bootstrap/Form';
-import TableFilter from 'react-table-filter';
 
 function Dashboard() {
     let token = sessionStorage.getItem('token')
